@@ -1,6 +1,7 @@
 import random
 import sys
 import time
+from unittest import result
 
 
 def download(filename):
@@ -35,3 +36,13 @@ upload('Python从入门到住院.pdf')
 #带参数的装饰器
 def timer(max):
     def decorator(func):
+        def warpper(*args, **kwargs):
+            start = time.time()
+            result = func(*args, **kwargs)
+            end = time.time()
+            cost_time = end - start
+            if cost_time > max:
+                print(f"用时超了{cost_time}")
+            return result
+        return warpper
+    return decorator
